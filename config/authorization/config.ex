@@ -72,7 +72,17 @@ defmodule Acl.UserGroups.Config do
                         "https://www.w3.org/2019/wot/security#BasicSecurityScheme",
                         "https://www.w3.org/2019/wot/security#OAuth2SecurityScheme"
                       ]
-                    } } ] },
+                    } },
+
+                  %GraphSpec{
+                    graph: "http://mu.semte.ch/graphs/worship-mandates-delta-files",
+                    constraint: %ResourceConstraint{
+                      resource_types: [
+                        "http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject",
+                        "http://www.w3.org/ns/dcat#Dataset", # is needed in dump file
+                        "http://www.w3.org/ns/dcat#Distribution",
+                      ] } }
+                 ] },
 
       # Storing files for worship mandates
       %GroupSpec{
