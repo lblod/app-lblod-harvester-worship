@@ -9,4 +9,4 @@
 docker-compose.override.yml
 .env
 /data/files/*
-./config/migrations/local/*
+/config/migrations/local/*
