@@ -42,41 +42,19 @@ mu-authorization config. This should all be in place for this repository, no
 work needed. Having authentication is the main difference between this
 repository and the regular harvester.
 
-### Migration to create user
-
-To have access to the frontend app you will need to create an account through
-migrations.
-
-```sparql
-PREFIX foaf:     <http://xmlns.com/foaf/0.1/>
-PREFIX users:    <http://mu.semte.ch/graphs/users>
-PREFIX accounts: <http://mu.semte.ch/graphs/users>
-PREFIX dcterms:  <http://purl.org/dc/terms/>
-PREFIX mu:       <http://mu.semte.ch/vocabularies/core/>
-PREFIX account:  <http://mu.semte.ch/vocabularies/account/>
-PREFIX xsd:      <http://www.w3.org/2001/XMLSchema#>
-
-INSERT DATA {
-  GRAPH <http://mu.semte.ch/graphs/users> {
-    users:4cb86562-a6c8-4ff3-8ea1-ad68d8c7b0d8
-        a foaf:Person ;
-        foaf:name "Test user" ;
-        foaf:account accounts:de3dc3dc-fb2f-47df-b1ef-13de15ec1109 ;
-        mu:uuid "4cb86562-a6c8-4ff3-8ea1-ad68d8c7b0d8" ;
-        dcterms:created "2023-03-08T14:40:00Z"^^xsd:datetime ;
-        dcterms:modified "2023-03-08T14:40:00Z"^^xsd:datetime .
-    accounts:de3dc3dc-fb2f-47df-b1ef-13de15ec1109
-        a foaf:OnlineAccount ;
-        foaf:accountName "testuser" ;
-        mu:uuid "de3dc3dc-fb2f-47df-b1ef-13de15ec1109" ;
-        account:password "<generate a hashed password>" ;
-        account:salt "<random salt>" ;
-        account:status <http://mu.semte.ch/vocabularies/account/status/active> ;
-        dcterms:created "2023-03-08T14:40:00Z"^^xsd:datetime ;
-        dcterms:modified "2023-03-08T14:40:00Z"^^xsd:datetime .
-  }
-}
+### creat login usern (all environments)
+For now, we use specic logins for the dashboard users. Each environement has its own passwords.
+To add a user, make sure to have installed [mu-cli](https://github.com/mu-semtech/mu-cli) first.
+Then in `docker-compose.override.yml`
 ```
+  dashboard-login
+    environment:
+      MU_APPLICATION_SALT: 'a_random_string_with_sufficient_entropy_hence_not_this_one'
+```
+You can generate by running `mu script project-scripts generate-dashboard-login` and following the steps.
+Restart `migrations` and it should work.
+Note: on DEV and QA, the passwords will be kept in on the server in `docker-compose.override.yml`
+
 
 Restart migrations and then use this account to log in.
 
