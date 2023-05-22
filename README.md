@@ -42,7 +42,7 @@ mu-authorization config. This should all be in place for this repository, no
 work needed. Having authentication is the main difference between this
 repository and the regular harvester.
 
-### creat login usern (all environments)
+### Create login user (all environments)
 For now, we use specic logins for the dashboard users. Each environement has its own passwords.
 To add a user, make sure to have installed [mu-cli](https://github.com/mu-semtech/mu-cli) first.
 Then in `docker-compose.override.yml`
