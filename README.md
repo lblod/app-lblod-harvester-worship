@@ -32,6 +32,25 @@ logs and wait for things to settle down. Once the stack is up and running
 without errors you can visit the frontend in a browser on
 `http://localhost:80`.
 
+### Setting up the delta-producers related services
+
+To make sure the app can share data, producers need to be set up. There is an intial sync, that is potentially very expensive, and must be started manually.
+
+#### producer for mandatarissen and ministers worship
+
+(Note: similar for other producers)
+
+1. make sure the app is up and running, the migrations have run
+2. in docker-compose.override.yml, make sure the following configuration is provided:
+```
+  delta-producer-background-jobs-initiator-worship:
+    environment:
+      START_INITIAL_SYNC: 'true'
+      KEY: "Add a random key with sufficient entropy"
+```
+3. `drc up -d delta-producer-background-jobs-initiator-worship`
+4. You can follow the status of the job, through the dashboard
+
 ## Authentication
 
 This app allows you to add authentication fields to both the Job and Scheduled
