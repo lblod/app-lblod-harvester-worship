@@ -4,6 +4,8 @@ services:
 
   identifier:
     restart: "no"
+    ports:
+      - 80:80
 
   dispatcher:
     restart: "no"
@@ -80,12 +82,6 @@ services:
     restart: "no"
 
   delta-producer-dump-file-publisher:
-    restart: "no"
-
-  delta-producer-background-jobs-initiator-besluiten:
-    restart: "no"
-
-  delta-producer-publication-graph-maintainer-besluiten:
     restart: "no"
 
   delta-producer-background-jobs-initiator-worship:
