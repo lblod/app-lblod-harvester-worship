@@ -5,7 +5,9 @@ sources. For the regular harvesting of Decisions, see
 [`app-lblod-harvester`](https://github.com/lblod/app-lblod-harvester).
 
 ## List of Services
+
 See `docker-compose.yml` file.
+
 ## Setup and startup
 
 To start this stack, clone this repository and start it using `docker compose`
@@ -34,21 +36,27 @@ without errors you can visit the frontend in a browser on
 
 ### Setting up the delta-producers related services
 
-To make sure the app can share data, producers need to be set up. There is an intial sync, that is potentially very expensive, and must be started manually.
+To make sure the app can share data, producers need to be set up. There is an
+intial sync, that is potentially very expensive, and must be started manually.
 
-#### producer for mandatarissen and ministers worship
+#### Producer for mandatarissen and ministers worship
 
 (Note: similar for other producers)
 
-1. make sure the app is up and running, the migrations have run
-2. in docker-compose.override.yml, make sure the following configuration is provided:
+1. Make sure the app is up and running, the migrations have run
+2. In `docker-compose.override.yml`, make sure the following configuration is
+   provided:
+
+```yaml
+delta-producer-background-jobs-initiator-worship:
+  environment:
+    START_INITIAL_SYNC: "true"
+delta-producer-publication-graph-maintainer-worship:
+  environment:
+    KEY: "Add a random key with sufficient entropy"
 ```
-  delta-producer-background-jobs-initiator-worship:
-    environment:
-      START_INITIAL_SYNC: 'true'
-      KEY: "Add a random key with sufficient entropy"
-```
-3. `drc up -d delta-producer-background-jobs-initiator-worship`
+
+3. Use `docker-compose up -d delta-producer-background-jobs-initiator-worship`
 4. You can follow the status of the job, through the dashboard
 
 ## Authentication
@@ -62,20 +70,25 @@ work needed. Having authentication is the main difference between this
 repository and the regular harvester.
 
 ### Create login user (all environments)
-For now, we use specic logins for the dashboard users. Each environement has its own passwords.
-To add a user, make sure to have installed [mu-cli](https://github.com/mu-semtech/mu-cli) first.
-Then in `docker-compose.override.yml`
-```
-  dashboard-login
-    environment:
-      MU_APPLICATION_SALT: 'a_random_string_with_sufficient_entropy_hence_not_this_one'
-```
-You can generate by running `mu script project-scripts generate-dashboard-login` and following the steps.
-Restart `migrations` and it should work.
-Note: on DEV and QA, the passwords will be kept in on the server in `docker-compose.override.yml`
 
+For now, we use specific logins for the dashboard users. Each environment has
+its own password. To add a user, make sure to have installed
+[mu-cli](https://github.com/mu-semtech/mu-cli) first. Then in
+`docker-compose.override.yml` add:
 
-Restart migrations and then use this account to log in.
+```yaml
+dashboard-login
+  environment:
+    MU_APPLICATION_SALT: 'a_random_string_with_sufficient_entropy'
+```
+
+You can then generate a migration for creating a new user by running `mu script
+project-scripts generate-dashboard-login` and following the steps. Restart
+`migrations`, wait for them to finish and you can use the account you created
+to login.
+
+Note: on DEV and QA, the passwords will be kept in on the server in
+`docker-compose.override.yml`
 
 ## Additional notes
 
@@ -103,3 +116,4 @@ repository](https://github.com/lblod/delta-producer-report-generator).
 
 Should have credentials provided, see [the deliver-email-service
 repository](https://github.com/redpencilio/deliver-email-service).
+
