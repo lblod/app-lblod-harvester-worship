@@ -34,7 +34,7 @@ services:
     logging: *default-logging
 
   frontend:
-    image: lblod/frontend-harvesting-self-service:2.1.0
+    image: lblod/frontend-harvesting-self-service:2.1.2
     volumes:
       - ./config/frontend:/config
     labels:
@@ -43,6 +43,8 @@ services:
     logging: *default-logging
     environment:
       EMBER_AUTHENTICATION_ENABLED: "true"
+      EMBER_BESLUITEN_HARVESTING_ENABLED: "false"
+      EMBER_WORSHIP_HARVESTING_ENABLED: "true"
 
   database:
     image: semtech/mu-authorization:0.6.0-beta.8
