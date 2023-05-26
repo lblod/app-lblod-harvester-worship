@@ -34,6 +34,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "http://www.w3.org/ns/org#holds",
         "http://data.lblod.info/vocabularies/erediensten/financiering",
         "http://www.w3.org/ns/org#siteAddress",
@@ -49,6 +50,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "http://xmlns.com/foaf/0.1/familyName",
         "http://xmlns.com/foaf/0.1/name",
         "https://data.vlaanderen.be/ns/persoon#gebruikteVoornaam",
@@ -66,6 +68,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "https://data.vlaanderen.be/ns/generiek#gestructureerdeIdentificator",
         "http://www.w3.org/2004/02/skos/core#notation",
         "http://purl.org/dc/terms/creator",
@@ -78,6 +81,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "https://data.vlaanderen.be/ns/generiek#lokaleIdentificator",
         "https://data.vlaanderen.be/ns/generiek#naamruimte",
         "https://data.vlaanderen.be/ns/generiek#versieIdentificator"
@@ -88,6 +92,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "https://data.vlaanderen.be/ns/persoon#datum"
       ]
     },
@@ -96,6 +101,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "http://www.w3.org/2006/vcard/ns#honorific-prefix",
         "http://www.w3.org/ns/locn#address",
         "http://schema.org/hoursAvailable",
@@ -117,6 +123,7 @@
       "graphsFilter": [ "http://mu.semte.ch/graphs/public" ],
       "properties": [
         "http://mu.semte.ch/vocabularies/core/uuid",
+        "http://www.w3.org/2002/07/owl#sameAs",
         "http://www.w3.org/ns/locn#location",
         "http://www.w3.org/ns/locn#geographicName",
         "http://www.w3.org/ns/locn#seeAlso",
