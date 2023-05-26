@@ -84,8 +84,8 @@ services:
   delta-producer-dump-file-publisher:
     restart: "no"
 
-  delta-producer-background-jobs-initiator-worship:
+  delta-producer-publication-graph-maintainer:
     restart: "no"
 
-  delta-producer-publication-graph-maintainer-worship:
+  delta-producer-background-jobs-initiator:
     restart: "no"
