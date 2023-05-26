@@ -43,6 +43,12 @@ intial sync, that is potentially very expensive, and must be started manually.
 
 (Note: similar for other producers)
 
+0. [Optional step, only on re-sync] Ensure the following in your docker-compose.override.yml, and then `docker-compose up -d`
+```yaml
+delta-producer-background-jobs-initiator-worship:
+  environment:
+    START_INITIAL_SYNC: "false"
+```
 1. Make sure the app is up and running, the migrations have run
 2. In `docker-compose.override.yml`, make sure the following configuration is
    provided:
