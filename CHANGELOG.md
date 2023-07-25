@@ -1,4 +1,6 @@
 # Changelog
+## 0.13.1 (2023-07-25)
+- remove default mu-allowed-headers
 ## 0.11.0 (2023-03-10)
 - bump frontend with new features
   - add login feature flag (turn login on/off)
