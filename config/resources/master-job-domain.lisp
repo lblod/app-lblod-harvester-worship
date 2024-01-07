@@ -1,44 +1,37 @@
 (define-resource job ()
   :class (s-prefix "cogs:Job")
-  :properties `((:created :datetime ,(s-prefix "dct:created"))
-                (:modified :datetime ,(s-prefix "dct:modified"))
-                (:creator :url ,(s-prefix "dct:creator")) ;;Later consider using proper relation in domain.lisp
-                (:status :url ,(s-prefix "adms:status")) ;;Later consider using proper relation in domain.lisp
-                (:operation :url ,(s-prefix "task:operation")) ;;Later consider using proper relation in domain.lisp
-                (:comment :string ,(s-prefix "skos:comment")))
-
+  :properties `((:created   :datetime ,(s-prefix "dct:created"))
+                (:modified  :datetime ,(s-prefix "dct:modified"))
+                (:creator   :url      ,(s-prefix "dct:creator")) ;;Later consider using proper relation in domain.lisp
+                (:status    :url      ,(s-prefix "adms:status")) ;;Later consider using proper relation in domain.lisp
+                (:operation :url      ,(s-prefix "task:operation")) ;;Later consider using proper relation in domain.lisp
+                (:comment   :string   ,(s-prefix "skos:comment")))
   :has-one `((job-error :via ,(s-prefix "task:error")
                         :as "error"))
-
   :has-many `((task :via ,(s-prefix "dct:isPartOf")
                     :inverse t
                     :as "tasks"))
-
   :resource-base (s-url "http://redpencil.data.gift/id/job/")
   :features '(include-uri)
   :on-path "jobs")
 
 (define-resource task ()
   :class (s-prefix "task:Task")
-  :properties `((:created :datetime ,(s-prefix "dct:created"))
-                (:modified :datetime ,(s-prefix "dct:modified"))
-                (:status :url ,(s-prefix "adms:status")) ;;Later consider using proper relation in domain.lisp
-                (:operation :url ,(s-prefix "task:operation")) ;;Later consider using proper relation in domain.lisp
-                (:index :string ,(s-prefix "task:index")))
-
+  :properties `((:created   :datetime ,(s-prefix "dct:created"))
+                (:modified  :datetime ,(s-prefix "dct:modified"))
+                (:status    :url      ,(s-prefix "adms:status")) ;;Later consider using proper relation in domain.lisp
+                (:operation :url      ,(s-prefix "task:operation")) ;;Later consider using proper relation in domain.lisp
+                (:index     :string   ,(s-prefix "task:index")))
   :has-one `((job-error :via ,(s-prefix "task:error")
-                    :as "error")
+                        :as "error")
              (job :via ,(s-prefix "dct:isPartOf")
-                    :as "job"))
-
+                  :as "job"))
   :has-many `((task :via ,(s-prefix "cogs:dependsOn")
                     :as "parent-tasks")
               (data-container :via ,(s-prefix "task:resultsContainer")
-                    :as "results-containers")
+                              :as "results-containers")
               (data-container :via ,(s-prefix "task:inputContainer")
-                    :as "input-containers")
-              )
-
+                              :as "input-containers"))
   :resource-base (s-url "http://redpencil.data.gift/id/task/")
   :features '(include-uri)
   :on-path "tasks")
@@ -62,8 +55,7 @@
                     :as "result-from-tasks")
               (task :via ,(s-prefix "task:inputContainer")
                     :inverse t
-                    :as "input-from-tasks")
-              )
+                    :as "input-from-tasks"))
   :resource-base (s-url "http://redpencil.data.gift/id/dataContainers/")
   :features '(include-uri)
   :on-path "data-containers")
