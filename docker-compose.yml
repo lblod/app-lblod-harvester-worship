@@ -15,7 +15,7 @@ services:
     restart: "no"
 
   identifier:
-    image: semtech/mu-identifier:1.10.0
+    image: semtech/mu-identifier:1.10.1
     labels:
       - "logging=true"
     restart: always
@@ -31,7 +31,7 @@ services:
     logging: *default-logging
 
   frontend:
-    image: lblod/frontend-harvesting-self-service:2.1.4
+    image: lblod/frontend-harvesting-self-service:2.1.5
     volumes:
       - ./config/frontend:/config
     labels:
@@ -69,7 +69,7 @@ services:
     logging: *default-logging
 
   migrations:
-    image: semtech/mu-migrations-service:0.8.0
+    image: semtech/mu-migrations-service:0.9.0
     links:
       - virtuoso:database
     volumes:
@@ -99,7 +99,7 @@ services:
     logging: *default-logging
 
   deltanotifier:
-    image: cecemel/delta-notifier:0.2.0-beta.3
+    image: semtech/mu-delta-notifier:0.2.0
     volumes:
       - ./config/delta:/config
     labels:
@@ -108,7 +108,7 @@ services:
     logging: *default-logging
 
   file:
-    image: semtech/mu-file-service:3.3.0
+    image: semtech/mu-file-service:3.3.2
     environment:
       MU_APPLICATION_GRAPH: "http://mu.semte.ch/graphs/harvesting"
     volumes:
@@ -119,7 +119,7 @@ services:
     logging: *default-logging
 
   login:
-    image: semtech/login-service:2.9.1
+    image: semtech/mu-login-service:3.0.0
     environment:
       USERS_GRAPH: "http://mu.semte.ch/graphs/users"
       SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
@@ -149,7 +149,7 @@ services:
     logging: *default-logging
 
   harvest_check-url:
-    image: lblod/harvest-check-url-collection-service:1.2.1
+    image: lblod/harvest-check-url-collection-service:1.3.1
     volumes:
       - ./data/files:/share
     labels:
@@ -167,7 +167,7 @@ services:
     logging: *default-logging
 
   harvest_import:
-    image: lblod/harvesting-import-service:0.7.1
+    image: lblod/harvesting-import-service:0.13.0
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
     volumes:
@@ -191,7 +191,7 @@ services:
     logging: *default-logging
 
   harvest_diff:
-    image: lblod/harvesting-diff-service:0.1.3
+    image: lblod/harvesting-diff-service:0.2.0
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
     volumes:
@@ -202,7 +202,7 @@ services:
     logging: *default-logging
 
   harvest_sameas:
-    image: lblod/import-with-sameas-service:3.2.0
+    image: lblod/import-with-sameas-service:4.1.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
       TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
@@ -215,7 +215,7 @@ services:
     logging: *default-logging
 
   job-controller:
-    image: lblod/job-controller-service:1.0.0
+    image: lblod/job-controller-service:1.0.1
     volumes:
       - ./config/job-controller:/config
     labels:
@@ -224,7 +224,7 @@ services:
     logging: *default-logging
 
   scheduled-job-controller:
-    image: lblod/scheduled-job-controller-service:1.0.1
+    image: lblod/scheduled-job-controller-service:1.0.2
     environment:
       # NOTE: if the delta-events prove to inaccurate,
       # you can go back to previous behavior by commenting out env.var. below
@@ -271,7 +271,7 @@ services:
     logging: *default-logging
 
   delta-producer-dump-file-publisher:
-    image: lblod/delta-producer-dump-file-publisher:0.9.1
+    image: lblod/delta-producer-dump-file-publisher:0.10.3
     environment:
       FILES_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       DCAT_DATASET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
@@ -290,17 +290,17 @@ services:
       SUDO_QUERY_RETRY_FOR_HTTP_STATUS_CODES: "404"
       MAX_BODY_SIZE: "50mb"
       PRETTY_PRINT_DIFF_JSON: "true"
-      CONFIG_SERVICES_JSON_PATH: '/config/publication-graph-maintainer/config.json'
+      CONFIG_SERVICES_JSON_PATH: '/config/config.json'
     volumes:
-      - ./config/delta-producer:/config
-      - ./data/files/:/share
+      - ./config/delta-producer/publication-graph-maintainer:/config
+      - ./data/files:/share
     restart: always
     logging: *default-logging
 
   delta-producer-background-jobs-initiator:
-    image: lblod/delta-producer-background-jobs-initiator:0.5.0
+    image: lblod/delta-producer-background-jobs-initiator:1.0.1
     volumes:
-      - ./config/delta-producer/background-job-initiator/config.json:/config/config.json
+      - ./config/delta-producer/background-job-initiator:/config
     labels:
       - "logging=true"
     restart: always
