@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## 0.16.0 (2024-01-12)
  - added provenance tag
  - bumped a lot of services
 ### deploy notes
