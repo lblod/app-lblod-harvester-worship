@@ -31,7 +31,7 @@ services:
     logging: *default-logging
 
   frontend:
-    image: lblod/frontend-harvesting-self-service:2.1.5
+    image: lblod/frontend-harvesting-self-service:2.2.0
     volumes:
       - ./config/frontend:/config
     labels:
@@ -55,7 +55,7 @@ services:
     logging: *default-logging
 
   virtuoso:
-    image: redpencil/virtuoso:1.1.0
+    image: redpencil/virtuoso:1.2.0-rc.1
     environment:
       SPARQL_UPDATE: "true"
       DEFAULT_GRAPH: "http://mu.semte.ch/graphs/public"
@@ -202,7 +202,7 @@ services:
     logging: *default-logging
 
   harvest_sameas:
-    image: lblod/import-with-sameas-service:4.1.1
+    image: lblod/import-with-sameas-service:4.2.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
       TARGET_GRAPH: "http://mu.semte.ch/graphs/public"

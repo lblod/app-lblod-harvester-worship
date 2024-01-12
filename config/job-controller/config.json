@@ -38,18 +38,23 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-harvesting-tag",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-vendor-tag",
         "nextIndex": "7"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-vendor-tag",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextIndex": "8"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/execute-diff-deletes",
-        "nextIndex": "8"
+        "nextIndex": "9"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/execute-diff-deletes",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/checking-urls",
-        "nextIndex": "9"
+        "nextIndex": "10"
       }
     ]
   },
@@ -92,18 +97,23 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-harvesting-tag",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-vendor-tag",
         "nextIndex": "7"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/add-vendor-tag",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
+        "nextIndex": "8"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
-        "nextIndex": "8"
+        "nextIndex": "9"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/checking-urls",
-        "nextIndex": "9"
+        "nextIndex": "10"
       }
     ]
   },
