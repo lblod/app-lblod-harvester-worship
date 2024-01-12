@@ -1,4 +1,11 @@
 # Changelog
+## Unreleased
+ - added provenance tag
+ - bumped a lot of services
+### deploy notes
+Since virtuoso has been bumped; you will have to follow the upgrade path.
+See: https://github.com/redpencilio/docker-virtuoso/blob/dec36bd4a5ed4191c42e0a9b5ca979d67bc22cfe/README.md#upgrading
+Note: probably in our context; we'll be making a full flush; as we need to harvest everything from scratch.
 ## 0.15.2 (2023-07-25)
 - remove default mu-allowed-headers
 ## 0.15.1 (2023-07-25)
