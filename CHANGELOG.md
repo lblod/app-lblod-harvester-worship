@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.1 (2024-02-01)
+ - Bump `delta-producer-publication-graph-maintainer`
 ## 0.16.0 (2024-01-12)
  - added provenance tag
  - bumped a lot of services
