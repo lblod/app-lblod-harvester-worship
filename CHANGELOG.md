@@ -1,4 +1,7 @@
 # Changelog
+## 0.16.2 (2024-02-09)
+ - Bump `scheduled-job-controller-service` to make scheduled jobs have the vendor provenance like the non-scheduled jobs.
+ - Adds the necessary resources config to store the vendor on the scheduled job.
 ## 0.16.1 (2024-02-01)
  - Bump `delta-producer-publication-graph-maintainer`
 ## 0.16.0 (2024-01-12)
