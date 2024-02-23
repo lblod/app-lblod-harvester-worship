@@ -12,9 +12,8 @@
     sh:name "Einddatum voor aanstelling" ;
     sh:description "Datum voor het einde van de aanstelling als mandataris" ;
     sh:path <http://data.lblod.info/vocabularies/erediensten/geplandeEinddatumAanstelling> ;
-    sh:class <> ;
     sh:nodeKind sh:Literal ;
-    sh:datatype xsd:dateTime ;
+    sh:datatype xsd:date ;
     sh:minCount 0 ;
     sh:maxCount 1 ;
   ] ;
@@ -67,7 +66,8 @@
     sh:name "Vervult" ;
     sh:description "Welk Mandataris deze Eredienst Mandataris vervult" ;
     sh:path <http://www.w3.org/ns/org#holds> ;
-    sh:class <http://data.vlaanderen.be/ns/mandaat#Mandataris> ;
+    #The following is correct, but in this database, there is no information about Mandatarissen. That is only in Loket.
+    #sh:class <http://data.vlaanderen.be/ns/mandaat#Mandataris> ;
     sh:nodeKind sh:IRI ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
@@ -105,15 +105,6 @@
     sh:nodeKind sh:Literal ;
     sh:datatype xsd:dateTime ;
     sh:minCount 0 ;
-    sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:name "Vervult door" ;
-    sh:description "Persoon die deze mandataris vervult" ;
-    sh:path <http://www.w3.org/ns/org#heldBy> ;
-    sh:class <http://www.w3.org/ns/person#Person> ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
     sh:maxCount 1 ;
   ] .
 
