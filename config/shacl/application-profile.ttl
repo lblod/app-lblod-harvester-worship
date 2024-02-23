@@ -106,15 +106,6 @@
     sh:datatype xsd:dateTime ;
     sh:minCount 0 ;
     sh:maxCount 1 ;
-  ] ;
-  sh:property [
-    sh:name "Vervult door" ;
-    sh:description "Persoon die deze mandataris vervult" ;
-    sh:path <http://www.w3.org/ns/org#heldBy> ;
-    sh:class <http://www.w3.org/ns/person#Person> ;
-    sh:nodeKind sh:IRI ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
   ] .
 
 <https://data.vlaanderen.be/shacl/erediensten#RolBedienaarShape>
