@@ -66,7 +66,8 @@
     sh:name "Vervult" ;
     sh:description "Welk Mandataris deze Eredienst Mandataris vervult" ;
     sh:path <http://www.w3.org/ns/org#holds> ;
-    sh:class <http://data.vlaanderen.be/ns/mandaat#Mandataris> ;
+    #The following is correct, but in this database, there is no information about Mandatarissen. That is only in Loket.
+    #sh:class <http://data.vlaanderen.be/ns/mandaat#Mandataris> ;
     sh:nodeKind sh:IRI ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
