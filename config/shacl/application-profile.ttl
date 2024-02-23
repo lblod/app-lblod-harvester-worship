@@ -13,7 +13,7 @@
     sh:description "Datum voor het einde van de aanstelling als mandataris" ;
     sh:path <http://data.lblod.info/vocabularies/erediensten/geplandeEinddatumAanstelling> ;
     sh:nodeKind sh:Literal ;
-    sh:datatype xsd:dateTime ;
+    sh:datatype xsd:date ;
     sh:minCount 0 ;
     sh:maxCount 1 ;
   ] ;
