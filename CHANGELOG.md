@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.3 (2024-02-23)
+ - Hotfix: SHACL profile was too restrictive and had some typographic and logical problems concerning production data for EredienstMandatarissen positions.
 ## 0.16.2 (2024-02-09)
  - Bump `scheduled-job-controller-service` to make scheduled jobs have the vendor provenance like the non-scheduled jobs.
  - Adds the necessary resources config to store the vendor on the scheduled job.
