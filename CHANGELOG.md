@@ -1,6 +1,6 @@
 # Changelog
 ## 0.16.4 (2024-03-06)
- - Bump `import-with-sameas-service`: fix broken harvests due to splitting files when streaming triples. This was only a (visible) problem when harvesters started from scatch (when there is no information about mirrors in the triplestore yet).
+ - Bump `import-with-sameas-service`: fix broken harvests due to splitting files when streaming triples. This was only a (visible) problem when harvesters started from scatch (when there is no information about mirrors in the triplestore yet). (DL-5662)
 ## 0.16.3 (2024-02-23)
  - Hotfix: SHACL profile was too restrictive and had some typographic and logical problems concerning production data for EredienstMandatarissen positions.
 ## 0.16.2 (2024-02-09)
