@@ -1,4 +1,7 @@
 # Changelog
+## 0.16.5 (2024-04-25)
+ - Bump `import-with-sameas-service`: use hashes for the URI of unknown entities instead of a random UUID. This makes the data more tolerant to temporory deletes.
+ - Bump `harvesting-diff-service` to a feature build. This feature build only looks at the previous input to the diff service and not all the previous inputs.
 ## 0.16.4 (2024-03-06)
  - Bump `import-with-sameas-service`: fix broken harvests due to splitting files when streaming triples. This was only a (visible) problem when harvesters started from scatch (when there is no information about mirrors in the triplestore yet). (DL-5662)
 ## 0.16.3 (2024-02-23)
