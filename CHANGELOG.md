@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.7 (2024-04-26)
+ - Change the `HIGH_LOAD_DATABASE_ENDPOINT` environment variable to database instead of Virtuoso, because we need the delta messages.
 ## 0.16.6 (2024-04-25)
  - Bump `import-with-sameas-service` just because the build system had to be retriggered.
 ## 0.16.5 (2024-04-25)
