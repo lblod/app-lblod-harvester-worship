@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.6 (2024-04-25)
+ - Bump `import-with-sameas-service` just because the build system had to be retriggered.
 ## 0.16.5 (2024-04-25)
  - Bump `import-with-sameas-service`: use hashes for the URI of unknown entities instead of a random UUID. This makes the data more tolerant to temporory deletes.
  - Bump `harvesting-diff-service` to a feature build. This feature build only looks at the previous input to the diff service and not all the previous inputs.
