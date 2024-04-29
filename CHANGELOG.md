@@ -1,4 +1,7 @@
 # Changelog
+## 0.16.8 (2024-04-29)
+ - Bump `harvesting-diff-service` to allow for mounting SPARQL queries for custom behaviour.
+ - Use custom SPARQL queries on the diff service, only fetching the latest state of the triplestore.
 ## 0.16.7 (2024-04-26)
  - Change the `HIGH_LOAD_DATABASE_ENDPOINT` environment variable to database instead of Virtuoso, because we need the delta messages.
 ## 0.16.6 (2024-04-25)
