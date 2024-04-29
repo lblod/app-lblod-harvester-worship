@@ -191,12 +191,13 @@ services:
     logging: *default-logging
 
   harvest_diff:
-    #image: lblod/harvesting-diff-service:0.2.0
-    image: lblod/harvesting-diff-service:feature-get-only-previous-input
+    image: lblod/harvesting-diff-service:0.2.3
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
+      SPARQL_QUERYSTORE_PATH: "file:/config/sparql"
     volumes:
       - ./data/files:/share
+      - ./config/diff/sparql:/config/sparql
     labels:
       - "logging=true"
     restart: always
