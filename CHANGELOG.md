@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.9 (2024-07-19)
+ - Bump `harvesting-import-service` to fix a bug that could cause all importing tasks to fail. Problem was caused by a faulty dependency that was fix an a new major version. A faulty version never made it to a deploy in this stack.
 ## 0.16.8 (2024-04-29)
  - Bump `harvesting-diff-service` to allow for mounting SPARQL queries for custom behaviour.
  - Use custom SPARQL queries on the diff service, only fetching the latest state of the triplestore.
