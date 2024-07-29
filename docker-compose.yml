@@ -167,7 +167,7 @@ services:
     logging: *default-logging
 
   harvest_import:
-    image: lblod/harvesting-import-service:0.13.0
+    image: lblod/harvesting-import-service:0.13.3
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
     volumes:
