@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.10 (2024-07-19)
+ - Bump `import-with-sameas-service` to use deterministic hashing for the UUID instead of a complete random one.
 ## 0.16.9 (2024-07-19)
  - Bump `harvesting-import-service` to fix a bug that could cause all importing tasks to fail. Problem was caused by a faulty dependency that was fix an a new major version. A faulty version never made it to a deploy in this stack.
 ## 0.16.8 (2024-04-29)
