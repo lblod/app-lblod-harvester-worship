@@ -1,4 +1,6 @@
 # Changelog
+## 0.16.11 (2024-08-19)
+ - Add missing `restart: always` for `login`. (DL-6103)
 ## 0.16.10 (2024-07-19)
  - Bump `import-with-sameas-service` to use deterministic hashing for the UUID instead of a complete random one.
 ## 0.16.9 (2024-07-19)
