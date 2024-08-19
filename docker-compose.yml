@@ -124,6 +124,7 @@ services:
       USERS_GRAPH: "http://mu.semte.ch/graphs/users"
       SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
     logging: *default-logging
+    restart: always
     labels:
       - "logging=true"
 
