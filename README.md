@@ -70,21 +70,27 @@ delta-producer-publication-graph-maintainer-worship:
 This app allows you to add authentication fields to both the Job and Scheduled
 Job request. To protect the app from unauthorized access via the frontend and
 API, you need to be authenticated. To configure authentication, you need to add
-an environment variable to the `frontend-harvester-self-service` and update the
+an environment variable to the `frontend-harvesting-self-service` and update the
 mu-authorization config. This should all be in place for this repository, no
 work needed. Having authentication is the main difference between this
 repository and the regular harvester.
 
-### Create login user (all environments)
+### DEV: mu-login
 
-For now, we use specific logins for the dashboard users. Each environment has
-its own password. To add a user, make sure to have installed
+The DEV environment uses mu-login for authentication. To add a mu-login user, make sure to have installed
 [mu-cli](https://github.com/mu-semtech/mu-cli) first. Then in
 `docker-compose.override.yml` add:
 
 ```yaml
-dashboard-login
+frontend:
   environment:
+    EMBER_LOGIN_ROUTE: "login"
+
+login:
+  image: semtech/mu-login-service:3.0.0
+  environment:
+    USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+    SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
     MU_APPLICATION_SALT: 'a_random_string_with_sufficient_entropy'
 ```
 
@@ -93,8 +99,12 @@ project-scripts generate-dashboard-login` and following the steps. Restart
 `migrations`, wait for them to finish and you can use the account you created
 to login.
 
-Note: on DEV and QA, the passwords will be kept in on the server in
+Note: on DEV, the password will be kept on the server in
 `docker-compose.override.yml`
+
+### QA & PROD: ACM/IDM
+
+The QA and PROD environments use acm/idm for the authentication. Request access rights internally if needed.
 
 ## Additional notes
 
@@ -122,4 +132,3 @@ repository](https://github.com/lblod/delta-producer-report-generator).
 
 Should have credentials provided, see [the deliver-email-service
 repository](https://github.com/redpencilio/deliver-email-service).
-

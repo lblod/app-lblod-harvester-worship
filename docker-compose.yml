@@ -31,7 +31,7 @@ services:
     logging: *default-logging
 
   frontend:
-    image: lblod/frontend-harvesting-self-service:2.2.0
+    image: lblod/frontend-harvesting-self-service:2.6.0
     volumes:
       - ./config/frontend:/config
     labels:
@@ -42,7 +42,12 @@ services:
       EMBER_AUTHENTICATION_ENABLED: "true"
       EMBER_BESLUITEN_HARVESTING_ENABLED: "false"
       EMBER_WORSHIP_HARVESTING_ENABLED: "true"
-
+      EMBER_LOGIN_ROUTE: "acmidm-login"
+      EMBER_ACMIDM_CLIENT_ID: "<CLIENT_ID>"
+      EMBER_ACMIDM_BASE_URL: "<BASE_URL>"
+      EMBER_ACMIDM_REDIRECT_URL: "<REDIRECT_URL>"
+      EMBER_ACMIDM_LOGOUT_URL: "<LOGOUT_URL>"
+      EMBER_ACMIDM_SCOPE: "openid rrn vo profile abb_eredienstenharvester"
   database:
     image: semtech/mu-authorization:0.6.0-beta.8
     environment:
@@ -119,10 +124,14 @@ services:
     logging: *default-logging
 
   login:
-    image: semtech/mu-login-service:3.0.0
+    image: lblod/acmidm-login-service:0.12.0
     environment:
-      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
-      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+      DEBUG_LOG_TOKENSETS: true
+      MU_APPLICATION_AUTH_ROLE_CLAIM: "abb_eredienstenharvester_rol_1d"
+      MU_APPLICATION_AUTH_DISCOVERY_URL: "<ACM_IDM_AUTH_DISCOVERY_URL>"
+      MU_APPLICATION_AUTH_CLIENT_ID: "<ACM_IDM_AUTH_CLIENT_ID>"
+      MU_APPLICATION_AUTH_REDIRECT_URI: "<ACMIDM_AUTH_REDIRECT_URI>"
+      MU_APPLICATION_AUTH_CLIENT_SECRET: "<ACMIDM_AUTH_CLIENT_SECRET>"
     logging: *default-logging
     restart: always
     labels:
