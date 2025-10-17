@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased
+## 0.17.0 (2025-10-17)
 - Upgrade to acm/idm for authentication (DL-6795)
 
 ### Deploy instructions
