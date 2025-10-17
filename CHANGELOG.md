@@ -1,4 +1,47 @@
 # Changelog
+## Unreleased
+- Upgrade to acm/idm for authentication (DL-6795)
+
+### Deploy instructions
+
+#### DEV
+Dev will remain using the mu-login, so in the `docker-compose.override.yml`:
+```
+  frontend:
+    environment:
+      EMBER_LOGIN_ROUTE: "login"
+
+  login:
+    image: semtech/mu-login-service:3.0.0
+    environment:
+      USERS_GRAPH: "http://mu.semte.ch/graphs/users"
+      SESSIONS_GRAPH: "http://mu.semte.ch/graphs/sessions"
+```
+
+#### QA
+`docker-compose.override.yml`:
+```
+  frontend:
+    environment:
+      EMBER_AUTHENTICATION_ENABLED: 'true'
+      EMBER_LOGIN_ROUTE: "acmidm-login"
+      EMBER_ACMIDM_CLIENT_ID: "fe47a486-1cec-421d-a6d1-c7df1d35e3e4"
+      EMBER_ACMIDM_BASE_URL: "https://authenticatie-ti.vlaanderen.be/op/v1/auth"
+      EMBER_ACMIDM_REDIRECT_URL: "https://worship-harvester.lblod.info/authorization/callback"
+      EMBER_ACMIDM_LOGOUT_URL: "https://authenticatie-ti.vlaanderen.be/op/v1/logout"
+
+  login:
+    environment:
+      MU_APPLICATION_AUTH_DISCOVERY_URL: "https://authenticatie-ti.vlaanderen.be/op"
+      MU_APPLICATION_AUTH_CLIENT_ID: "fe47a486-1cec-421d-a6d1-c7df1d35e3e4"
+      MU_APPLICATION_AUTH_REDIRECT_URI: "https://worship-harvester.lblod.info/authorization/callback"
+      MU_APPLICATION_AUTH_CLIENT_SECRET: "snip" # see ticket for secret
+```
+
+#### PROD
+
+Configure the environment variables for the PROD ACM/IDM environment once the values are known.
+
 ## 0.16.11 (2024-08-19)
  - Add missing `restart: always` for `login`. (DL-6103)
 ## 0.16.10 (2024-07-19)
