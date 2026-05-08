@@ -1,4 +1,11 @@
 # Changelog
+## Unreleased
+- Bump acm-login service [DL-7346]
+## Deploy notes
+```
+drc up -d login
+```
+
 ## 0.17.0 (2025-10-17)
 - Upgrade to acm/idm for authentication (DL-6795)
 
