@@ -188,7 +188,7 @@ services:
     logging: *default-logging
 
   harvest_validate:
-    image: lblod/harvesting-validator:0.4.0
+    image: lblod/harvesting-validator:0.4.1
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       STRICT_MODE_FILTERING: "false"
@@ -201,10 +201,7 @@ services:
     logging: *default-logging
 
   harvest_diff:
-    # Sometimes the diff service does not find the task in the delta message.
-    # (2026-07-24)
-    # image: lblod/harvesting-diff-service:0.3.0
-    image: lblod/harvesting-diff-service:0.2.3
+    image: lblod/harvesting-diff-service:0.3.1
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       SPARQL_QUERYSTORE_PATH: "file:/config/sparql"
@@ -231,10 +228,7 @@ services:
     logging: *default-logging
 
   job-controller:
-    # A problem with the validate and diff service prevent the app from working
-    # with a more recent version of this service. (2026-07-24)
-    # image: lblod/job-controller-service:1.4.1
-    image: lblod/job-controller-service:1.0.1
+    image: lblod/job-controller-service:1.4.1
     volumes:
       - ./config/job-controller:/config
     labels:
