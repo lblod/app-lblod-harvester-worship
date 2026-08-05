@@ -106,6 +106,25 @@ Note: on DEV, the password will be kept on the server in
 
 The QA and PROD environments use acm/idm for the authentication. Request access rights internally if needed.
 
+## Sanity test the worship harvest flow
+
+A `mu script` is available to test the worship harvest end to end: it harvests
+1 dummy mandataris + 1 dummy bedienaar for one eredienst-bestuur and verifies
+they reach the publication graph.
+
+```sh
+mu script project-scripts test-worship-harvest
+```
+
+It prompts for a bestuur name fragment and picks from matches on Centrale
+Vindplaats. Pass the bestuur URI as an argument to skip the prompt:
+
+```sh
+mu script project-scripts test-worship-harvest http://data.lblod.info/id/besturenVanDeEredienst/7d5d0c3cb64d8af3569559c66debaca2
+```
+
+Prerequisites: the stack is up.
+
 ## Additional notes
 
 ### Performance

@@ -15,6 +15,20 @@
       "mounts": {
         "app": "/project/"
       }
+    },
+    {
+      "documentation": {
+        "command": "test-worship-harvest",
+        "description": "Test: harvest 1 dummy mandataris + 1 bedienaar for one eredienst-bestuur and verify publication",
+        "arguments": ["[bestuur-uri]"]
+      },
+      "environment": {
+        "image": "node:20-bookworm",
+        "interactive": true,
+        "join_networks": true,
+        "script": "test-worship-harvest/run.sh"
+      },
+      "mounts": { "app": "/data/app/" }
     }
   ]
 }
