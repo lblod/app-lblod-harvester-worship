@@ -17,7 +17,7 @@ SELECT ?uri ?label WHERE {
 } ORDER BY ?label LIMIT 10`;
 }
 
-export function mandatenQuery(bestuurUri) {
+export function mandaatQuery(bestuurUri) {
   // hasPost sits on the time-specialised orgaan, not on the abstract one - querying the abstract one returns nothing.
   return `PREFIX org: <http://www.w3.org/ns/org#>
 PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
@@ -30,23 +30,23 @@ SELECT ?mandaat ?rolLabel WHERE {
   ?mandaat org:role/skos:prefLabel ?rolLabel .
   OPTIONAL { ?tijdspecOrgaan mandaat:bindingEinde ?bindingEinde . }
   FILTER(!BOUND(?bindingEinde) || ?bindingEinde > NOW())
-} ORDER BY DESC(?bindingStart) ?rolLabel LIMIT 5`;
+} ORDER BY DESC(?bindingStart) ?rolLabel LIMIT 1`;
 }
 
-export function positiesQuery(bestuurUri) {
+export function positieQuery(bestuurUri) {
   return `PREFIX ere: <http://data.lblod.info/vocabularies/erediensten/>
 SELECT ?positie WHERE {
   ${uri(bestuurUri)} ere:wordtBediendDoor ?positie . ?positie a ere:PositieBedienaar .
-} ORDER BY ?positie LIMIT 5`;
+} ORDER BY ?positie LIMIT 1`;
 }
 
-export function pollQuery(jobUri, rdoMandatarissen, rdoBedienaren) {
+export function pollQuery(job) {
   return `PREFIX adms: <http://www.w3.org/ns/adms#>
 PREFIX cogs: <http://vocab.deri.ie/cogs#>
 SELECT ?jobStatus ?mandatarissenStatus ?bedienarenStatus WHERE {
-  ${uri(jobUri)} a cogs:Job ; adms:status ?jobStatus .
-  OPTIONAL { ${uri(rdoMandatarissen)} adms:status ?mandatarissenStatus . }
-  OPTIONAL { ${uri(rdoBedienaren)} adms:status ?bedienarenStatus . }
+  ${uri(job.jobUri)} a cogs:Job ; adms:status ?jobStatus .
+  OPTIONAL { ${uri(job.rdoMandatarissen)} adms:status ?mandatarissenStatus . }
+  OPTIONAL { ${uri(job.rdoBedienaren)} adms:status ?bedienarenStatus . }
 }`;
 }
 

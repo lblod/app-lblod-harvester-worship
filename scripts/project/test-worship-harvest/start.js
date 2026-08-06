@@ -9,15 +9,16 @@ export async function startJob(runId, pageUrls, user, pass) {
   const now = new Date().toISOString();
   const dateTime = (value) => `"${value}"^^<http://www.w3.org/2001/XMLSchema#dateTime>`;
 
-  const jobUri = "http://data.lblod.info/id/jobs/" + randomUUID();
-  const rdoMandatarissen = "http://data.lblod.info/id/remote-data-objects/" + randomUUID();
-  const rdoBedienaren = "http://data.lblod.info/id/remote-data-objects/" + randomUUID();
-  const authConfig = "http://data.lblod.info/id/authentication-configurations/" + randomUUID();
-  const securityScheme = "http://data.lblod.info/id/basic-security-schemes/" + randomUUID();
-  const credentials = "http://data.lblod.info/id/basic-authentication-credentials/" + randomUUID();
-  const collection = "http://data.lblod.info/id/harvesting-collections/" + randomUUID();
-  const container = "http://data.lblod.info/id/data-containers/" + randomUUID();
-  const taskUri = "http://data.lblod.info/id/tasks/" + randomUUID();
+  const id = (type) => "http://data.lblod.info/id/" + type + "/" + randomUUID();
+  const jobUri = id("jobs");
+  const rdoMandatarissen = id("remote-data-objects");
+  const rdoBedienaren = id("remote-data-objects");
+  const authConfig = id("authentication-configurations");
+  const securityScheme = id("basic-security-schemes");
+  const credentials = id("basic-authentication-credentials");
+  const collection = id("harvesting-collections");
+  const container = id("data-containers");
+  const taskUri = id("tasks");
 
   const query = `
 PREFIX adms: <http://www.w3.org/ns/adms#>
@@ -87,6 +88,6 @@ INSERT DATA {
   }
 }`;
 
-  if (!(await update(query))) throw new Error("job INSERT failed");
+  await update(query);
   return { jobUri, rdoMandatarissen, rdoBedienaren };
 }

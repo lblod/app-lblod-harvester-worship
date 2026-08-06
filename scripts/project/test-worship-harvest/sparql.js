@@ -5,12 +5,7 @@ export function uri(value) {
 }
 
 export function lit(value) {
-  const escaped = String(value)
-    .replace(/\\/g, "\\\\")
-    .replace(/"/g, '\\"')
-    .replace(/\n/g, "\\n")
-    .replace(/\r/g, "\\r");
-  return '"' + escaped + '"';
+  return '"' + String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
 }
 
 export function label(value) {
@@ -18,46 +13,34 @@ export function label(value) {
 }
 
 // Every query is logged, but the poll loops send the same one over and over - printing it
-// in full each time buries the progress lines, so repeats collapse to one short line.
+// in full each time buries the progress, so repeats print a dot.
 let lastQuery = null;
-let repeatingSince = 0;
 
-function logQuery(kind, query) {
+function log(query) {
   if (query === lastQuery) {
-    console.log("  │ … same query, " + Math.round((Date.now() - repeatingSince) / 1000) + "s waiting");
+    process.stdout.write(".");
     return;
   }
   lastQuery = query;
-  repeatingSince = Date.now();
-  console.log("  · SPARQL " + kind);
-  for (const line of query.trim().split("\n")) console.log("  │ " + line);
+  console.log("\n" + query.trim());
 }
 
 export async function sparql(endpoint, query) {
-  logQuery("query", query);
+  log(query);
   const response = await fetch(endpoint + "?query=" + encodeURIComponent(query), {
     headers: { Accept: "application/sparql-results+json" },
   });
   const text = await response.text();
-  let parsed;
-  try {
-    parsed = JSON.parse(text);
-  } catch (parseError) {
-    return { error: "unparseable: " + text.slice(0, 200) };
-  }
-  if (typeof parsed.boolean === "boolean") return { boolean: parsed.boolean };
-  return parsed.results ? parsed.results.bindings : [];
+  if (!response.ok) throw new Error("SPARQL " + response.status + " from " + endpoint + ": " + text.slice(0, 200));
+  return JSON.parse(text).results.bindings;
 }
 
 export async function update(query) {
-  logQuery("update", query);
+  log(query);
   const response = await fetch(DATABASE, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "mu-auth-sudo": "true",
-    },
+    headers: { "Content-Type": "application/x-www-form-urlencoded", "mu-auth-sudo": "true" },
     body: "query=" + encodeURIComponent(query),
   });
-  return response.status === 200 || response.status === 204;
+  if (!response.ok) throw new Error("SPARQL update " + response.status + ": " + (await response.text()).slice(0, 200));
 }
