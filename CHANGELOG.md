@@ -1,9 +1,12 @@
 # Changelog
 ## Unreleased
 - Bump acm-login service [DL-7346]
+- Adding extra provenance info [DL-7434] [DL-7435]
+- Adding mu-scripts to facilitate testing [DL-7517]
 ## Deploy notes
 ```
-drc up -d login
+drc stop # that's the easiest here
+drc up -d
 ```
 
 ## 0.17.0 (2025-10-17)
