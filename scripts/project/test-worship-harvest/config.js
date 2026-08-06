@@ -1,54 +1,17 @@
-import { existsSync, readFileSync } from "node:fs";
-
-// mu-cli mounts the project folder here (see the "mounts" in scripts/project/config.json).
-// Anything that differs per deployment - graphs, endpoints, the task chain - is read from
-// the running stack's own configuration instead of being hardcoded.
-const APP = "/data/app/";
-
-const composeFiles = ["docker-compose.yml", "docker-compose.override.yml"]
-  .filter((name) => existsSync(APP + name))
-  .map((name) => readFileSync(APP + name, "utf8"));
-if (!composeFiles.length) throw new Error("no docker-compose files under " + APP);
-
-function serviceLines(yaml, service) {
-  const lines = yaml.split("\n");
-  const start = lines.findIndex((line) => line.trim() === service + ":");
-  if (start === -1) return [];
-  const indent = lines[start].search(/\S/);
-  let end = lines.length;
-  for (let i = start + 1; i < lines.length; i++) {
-    if (lines[i].trim() && lines[i].search(/\S/) <= indent) { end = i; break; }
-  }
-  return lines.slice(start + 1, end);
-}
-
-// Later file wins, the way docker compose merges the override.
-function env(service, key) {
-  let value;
-  for (const yaml of composeFiles) {
-    for (const line of serviceLines(yaml, service)) {
-      const match = line.match(new RegExp("^\\s+" + key + ":\\s*(.*)$"));
-      if (match) value = match[1].trim().replace(/^["']|["']$/g, "");
-    }
-  }
-  if (!value) throw new Error("no " + key + " on service " + service + " in the compose files");
-  return value;
-}
-
-function config(path) {
-  return JSON.parse(readFileSync(APP + path, "utf8"));
-}
+import { config, setupEnvVariables } from "./utils.js";
 
 export const CENTRALE_VINDPLAATS = "https://centrale-vindplaats.lblod.info/sparql";
+
+const env = setupEnvVariables();
 // Reads go straight to Virtuoso (sees every graph, no auth). Writes must go through
 // mu-authorization: it is what emits the deltas that drive the harvest chain.
-export const VIRTUOSO = env("database", "MU_SPARQL_ENDPOINT");
+export const VIRTUOSO = env.VIRTUOSO;
 export const DATABASE = "http://database:8890/sparql";
 
 // download-url-service reads the remote data objects from its DEFAULT_GRAPH, so that is
 // where the job has to be written. The sameas service is what lands the harvested data.
-export const HARVEST_GRAPH = env("harvest_download-url", "DEFAULT_GRAPH");
-export const PUBLIC_GRAPH = env("harvest_sameas", "TARGET_GRAPH");
+export const HARVEST_GRAPH = env.HARVEST_GRAPH;
+export const PUBLIC_GRAPH = env.PUBLIC_GRAPH;
 
 const [producer] = Object.values(config("config/delta-producer/publication-graph-maintainer/config.json"));
 export const PUBLICATION_GRAPH = producer.publicationGraph;
@@ -56,7 +19,10 @@ export const PUBLICATION_GRAPH = producer.publicationGraph;
 // job is done - check 5 polls at the same rate.
 export const PUBLISH_INTERVAL = producer.deltaInterval;
 
-export const JOB_OPERATION = "http://lblod.data.gift/id/jobs/concept/JobOperation/lblodHarvestWorshipAndPublish";
+export const JOB_OPERATION = process.env.JOB_OPERATION
+  ?? "http://lblod.data.gift/id/jobs/concept/JobOperation/lblodHarvestWorship";
+export const PUBLISH_OPERATION = "http://lblod.data.gift/id/jobs/concept/JobOperation/lblodHarvestWorshipAndPublish";
+export const PUBLISHES = JOB_OPERATION === PUBLISH_OPERATION;
 const chain = config("config/job-controller/config.json")[JOB_OPERATION];
 if (!chain) throw new Error(JOB_OPERATION + " is not in config/job-controller/config.json");
 export const TASK_OPS = chain.tasksConfiguration.map((step) => step.nextOperation);

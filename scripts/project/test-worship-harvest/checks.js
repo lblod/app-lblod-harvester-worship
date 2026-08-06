@@ -1,7 +1,7 @@
 import {
   VIRTUOSO, JOB_SUCCESS, JOB_FAILED, DL_COLLECTED, DL_FAILURE, TASK_OPS,
   PUBLIC_GRAPH, PUBLICATION_GRAPH, POLL_INTERVAL, POLL_TIMEOUT,
-  PUBLISH_INTERVAL, PUBLISH_TIMEOUT,
+  PUBLISH_INTERVAL, PUBLISH_TIMEOUT, PUBLISHES,
 } from "./config.js";
 import { sparql, label } from "./sparql.js";
 import { pollQuery, tasksQuery, jobStatusQuery, sameAsInGraphQuery } from "./queries.js";
@@ -10,14 +10,17 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function runChecks(job, uris) {
   const statuses = await pollJob(job);
+  const total = PUBLISHES ? 5 : 3;
 
   let passed = 0;
-  passed += await report(1, "pages downloaded", () => checkDownloads(statuses));
-  passed += await report(2, "all tasks succeeded", () => checkTasks(job.jobUri));
-  passed += await report(3, "job succeeded", () => checkJob(job.jobUri));
-  passed += await report(4, "data in " + PUBLIC_GRAPH, () => inGraph(uris, PUBLIC_GRAPH));
-  passed += await report(5, "data published", () => checkPublished(uris));
-  return passed;
+  passed += await report(1, "pages downloaded", total, () => checkDownloads(statuses));
+  passed += await report(2, "all tasks succeeded", total, () => checkTasks(job.jobUri));
+  passed += await report(3, "job succeeded", total, () => checkJob(job.jobUri));
+  if (PUBLISHES) {
+    passed += await report(4, "data in " + PUBLIC_GRAPH, total, () => inGraph(uris, PUBLIC_GRAPH));
+    passed += await report(5, "data published", total, () => checkPublished(uris));
+  }
+  return { passed, total };
 }
 
 // The job is inserted `busy`, so wait for a final status rather than for the first row.
@@ -35,12 +38,12 @@ async function pollJob(job) {
   return row;
 }
 
-async function report(number, name, check) {
+async function report(number, name, total, check) {
   try {
-    console.log("\n[" + number + "/5] ok    " + name + " - " + (await check()));
+    console.log("\n[" + number + "/" + total + "] ok    " + name + " - " + (await check()));
     return 1;
   } catch (error) {
-    console.log("\n[" + number + "/5] FAIL  " + name + " - " + error.message);
+    console.log("\n[" + number + "/" + total + "] FAIL  " + name + " - " + error.message);
     return 0;
   }
 }

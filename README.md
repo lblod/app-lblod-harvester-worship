@@ -109,18 +109,18 @@ The QA and PROD environments use acm/idm for the authentication. Request access 
 ## Sanity test the worship harvest flow
 
 A `mu script` is available to test the worship harvest end to end: it harvests
-1 dummy mandataris + 1 dummy bedienaar for one eredienst-bestuur and verifies
-they reach the publication graph.
+1 dummy mandataris + 1 dummy bedienaar for one eredienst-bestuur. Two variants:
 
 ```sh
-mu script project-scripts test-worship-harvest
+mu script project-scripts test-worship-harvest                 # harvest only, 3/3 checks
+mu script project-scripts test-worship-harvest-and-publish      # also verify publication graph, 5/5 checks
 ```
 
 It prompts for a bestuur name fragment and picks from matches on Centrale
 Vindplaats. Pass the bestuur URI as an argument to skip the prompt:
 
 ```sh
-mu script project-scripts test-worship-harvest http://data.lblod.info/id/besturenVanDeEredienst/7d5d0c3cb64d8af3569559c66debaca2
+mu script project-scripts test-worship-harvest-and-publish http://data.lblod.info/id/besturenVanDeEredienst/7d5d0c3cb64d8af3569559c66debaca2
 ```
 
 Prerequisites: the stack is up.

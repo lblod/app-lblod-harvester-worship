@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import {
-  CENTRALE_VINDPLAATS, HARVEST_GRAPH, PUBLIC_GRAPH, PUBLICATION_GRAPH, TASK_OPS, PAGE_PORT,
+  HARVEST_GRAPH, PUBLIC_GRAPH, PUBLICATION_GRAPH, TASK_OPS, PAGE_PORT,
 } from "./config.js";
 import { sparql } from "./sparql.js";
 import { mandaatQuery, positieQuery } from "./queries.js";
@@ -32,10 +32,10 @@ try {
   const bestuur = await chooseBestuur(process.argv.slice(2));
   console.log("\n" + bestuur.label + "\n" + bestuur.uri);
 
-  const [mandaat] = await sparql(CENTRALE_VINDPLAATS, mandaatQuery(bestuur.uri));
-  const [positie] = await sparql(CENTRALE_VINDPLAATS, positieQuery(bestuur.uri));
-  if (!mandaat) throw new Error("no mandaat on Centrale Vindplaats for " + bestuur.uri);
-  if (!positie) throw new Error("no positie on Centrale Vindplaats for " + bestuur.uri);
+  const [mandaat] = await sparql(bestuur.endpoint, mandaatQuery(bestuur.uri));
+  const [positie] = await sparql(bestuur.endpoint, positieQuery(bestuur.uri));
+  if (!mandaat) throw new Error("no mandaat at " + bestuur.endpoint + " for " + bestuur.uri);
+  if (!positie) throw new Error("no positie at " + bestuur.endpoint + " for " + bestuur.uri);
 
   const mandataris = buildSubject("mandatarissen", "Testmandataris");
   const bedienaar = buildSubject("rollenBedienaar", "Testbedienaar");
@@ -65,8 +65,8 @@ try {
   console.log("\njob started: " + job.jobUri);
 
   section("checks");
-  const passed = await runChecks(job, [mandataris.URI, bedienaar.URI]);
-  console.log("\nTEST: " + (passed === 5 ? "PASS" : "FAIL") + " (" + passed + "/5 checks)");
+  const result = await runChecks(job, [mandataris.URI, bedienaar.URI]);
+  console.log("\nTEST: " + (result.passed === result.total ? "PASS" : "FAIL") + " (" + result.passed + "/" + result.total + " checks)");
 } catch (error) {
   console.error("\nFATAL: " + (error?.stack || error));
   console.log("\nTEST: FAIL");
