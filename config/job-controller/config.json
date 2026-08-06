@@ -13,11 +13,11 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/collecting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/importing",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/extracting",
         "nextIndex": "2"
       },
       {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/importing",
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/extracting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/filtering",
         "nextIndex": "3"
       },
@@ -48,13 +48,18 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/execute-diff-deletes",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/tag-diff-modified",
         "nextIndex": "9"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/tag-diff-modified",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/execute-diff-deletes",
+        "nextIndex": "10"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/execute-diff-deletes",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/checking-urls",
-        "nextIndex": "10"
+        "nextIndex": "11"
       }
     ]
   },
@@ -72,11 +77,11 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/collecting",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/importing",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/extracting",
         "nextIndex": "2"
       },
       {
-        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/importing",
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/extracting",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/filtering",
         "nextIndex": "3"
       },
@@ -107,13 +112,18 @@
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/diff",
-        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/tag-diff-modified",
         "nextIndex": "9"
+      },
+      {
+        "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/tag-diff-modified",
+        "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
+        "nextIndex": "10"
       },
       {
         "currentOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/publishHarvestedTriplesWithDeletes",
         "nextOperation": "http://lblod.data.gift/id/jobs/concept/TaskOperation/checking-urls",
-        "nextIndex": "10"
+        "nextIndex": "11"
       }
     ]
   },

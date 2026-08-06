@@ -1,5 +1,3 @@
-version: "3.7"
-
 x-logging: &default-logging
   driver: "json-file"
   options:
@@ -145,7 +143,7 @@ services:
     logging: *default-logging
 
   harvest_download-url:
-    image: lblod/download-url-service:1.0.3
+    image: lblod/download-url-service:1.3.0
     volumes:
       - ./data/files:/share
     environment:
@@ -177,7 +175,7 @@ services:
     logging: *default-logging
 
   harvest_import:
-    image: lblod/harvesting-import-service:0.13.3
+    image: lblod/harvesting-extract-to-ttl:0.15.0
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
     volumes:
@@ -188,7 +186,7 @@ services:
     logging: *default-logging
 
   harvest_validate:
-    image: lblod/harvesting-validator:0.3.0
+    image: lblod/harvesting-validator:0.4.1
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       STRICT_MODE_FILTERING: "false"
@@ -201,7 +199,7 @@ services:
     logging: *default-logging
 
   harvest_diff:
-    image: lblod/harvesting-diff-service:0.2.3
+    image: lblod/harvesting-diff-service:0.3.1
     environment:
       TARGET_GRAPH: "http://mu.semte.ch/graphs/harvesting"
       SPARQL_QUERYSTORE_PATH: "file:/config/sparql"
@@ -214,7 +212,7 @@ services:
     logging: *default-logging
 
   harvest_sameas:
-    image: lblod/import-with-sameas-service:4.5.0
+    image: lblod/import-with-sameas-service:4.11.0
     environment:
       RENAME_DOMAIN: "http://data.lblod.info/id/"
       TARGET_GRAPH: "http://mu.semte.ch/graphs/public"
@@ -228,7 +226,7 @@ services:
     logging: *default-logging
 
   job-controller:
-    image: lblod/job-controller-service:1.0.1
+    image: lblod/job-controller-service:1.4.1
     volumes:
       - ./config/job-controller:/config
     labels:
@@ -237,7 +235,7 @@ services:
     logging: *default-logging
 
   scheduled-job-controller:
-    image: lblod/scheduled-job-controller-service:1.1.0
+    image: lblod/scheduled-job-controller-service:1.3.0
     environment:
       # NOTE: if the delta-events prove to inaccurate,
       # you can go back to previous behavior by commenting out env.var. below
@@ -260,7 +258,7 @@ services:
     logging: *default-logging
 
   error-alert:
-    image: lblod/loket-error-alert-service:1.0.0
+    image: lblod/loket-error-alert-service:1.0.2
     volumes:
       - ./config/error-alert:/config/
     labels:
