@@ -125,6 +125,12 @@ mu script project-scripts test-worship-harvest-and-publish http://data.lblod.inf
 
 Prerequisites: the stack is up.
 
+The publish variant (`test-worship-harvest-and-publish`) also needs the
+publication-graph-maintainer configured. On a dev stack that never ran an initial
+sync, add `"waitForInitialSync": "false"` to
+`config/delta-producer/publication-graph-maintainer/config.json` and restart the
+service, otherwise deltas are held back and check 5 times out.
+
 ## Additional notes
 
 ### Performance
