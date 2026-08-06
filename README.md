@@ -106,6 +106,31 @@ Note: on DEV, the password will be kept on the server in
 
 The QA and PROD environments use acm/idm for the authentication. Request access rights internally if needed.
 
+## Sanity test the worship harvest flow
+
+A `mu script` is available to test the worship harvest end to end: it harvests
+1 dummy mandataris + 1 dummy bedienaar for one eredienst-bestuur. Two variants:
+
+```sh
+mu script project-scripts test-worship-harvest                 # harvest only, 3/3 checks
+mu script project-scripts test-worship-harvest-and-publish      # also verify publication graph, 5/5 checks
+```
+
+It prompts for a bestuur name fragment and picks from matches on Centrale
+Vindplaats. Pass the bestuur URI as an argument to skip the prompt:
+
+```sh
+mu script project-scripts test-worship-harvest-and-publish http://data.lblod.info/id/besturenVanDeEredienst/7d5d0c3cb64d8af3569559c66debaca2
+```
+
+Prerequisites: the stack is up.
+
+The publish variant (`test-worship-harvest-and-publish`) also needs the
+publication-graph-maintainer configured. On a dev stack that never ran an initial
+sync, add `"waitForInitialSync": "false"` to
+`config/delta-producer/publication-graph-maintainer/config.json` and restart the
+service, otherwise deltas are held back and check 5 times out.
+
 ## Additional notes
 
 ### Performance
