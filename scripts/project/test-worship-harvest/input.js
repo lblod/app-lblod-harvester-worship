@@ -1,5 +1,5 @@
 import readline from "node:readline/promises";
-import { CENTRALE_VINDPLAATS } from "./config.js";
+import { CENTRALE_VINDPLAATS, VENDOR } from "./config.js";
 import { sparql } from "./sparql.js";
 import { bestuurByUriQuery, besturenSearchQuery } from "./queries.js";
 
@@ -24,10 +24,15 @@ export async function chooseBestuur(argv) {
     const endpoint = sourceInput || CENTRALE_VINDPLAATS;
     if (endpoint !== CENTRALE_VINDPLAATS) console.log("using custom endpoint: " + endpoint);
 
+    const vendorPrompt = "Vendor URI [enter = " + VENDOR + "]";
+    const vendorInput = (await reader.question(vendorPrompt + ": ")).trim();
+    const vendor = vendorInput || VENDOR;
+    if (vendor !== VENDOR) console.log("using custom vendor: " + vendor);
+
     if (argv[0]) {
       const [row] = await sparql(endpoint, bestuurByUriQuery(argv[0]));
       if (!row) throw new Error("bestuur not found at " + endpoint + ": " + argv[0]);
-      return { uri: argv[0], label: row.label.value, endpoint };
+      return { uri: argv[0], label: row.label.value, endpoint, vendor };
     }
     const search = (await reader.question("search bestuur by name (or part of it): ")).trim();
     const rows = await sparql(endpoint, besturenSearchQuery(search));
@@ -35,7 +40,7 @@ export async function chooseBestuur(argv) {
     rows.forEach((row, index) => console.log("[" + (index + 1) + "] " + row.label.value + " (" + row.uri.value + ")"));
     const chosen = rows[Number((await reader.question("pick a number: ")).trim()) - 1];
     if (!chosen) throw new Error("invalid choice");
-    return { uri: chosen.uri.value, label: chosen.label.value, endpoint };
+    return { uri: chosen.uri.value, label: chosen.label.value, endpoint, vendor };
   } finally {
     reader.close();
   }

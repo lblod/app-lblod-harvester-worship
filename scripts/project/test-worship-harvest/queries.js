@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { uri, lit } from "./sparql.js";
 import {
-  HARVEST_GRAPH, CREATOR, VENDOR, JOB_OPERATION, SINGLETON_JOB, ACCEPT_HTML,
+  HARVEST_GRAPH, CREATOR, JOB_OPERATION, SINGLETON_JOB, ACCEPT_HTML,
   JOB_BUSY, JOB_SCHEDULED,
 } from "./config.js";
 
@@ -48,7 +48,7 @@ SELECT ?positie WHERE {
 export function startJobQuery({
   runId, pageUrls, user, pass, now,
   jobUri, rdoMandatarissen, rdoBedienaren, authConfig, securityScheme,
-  credentials, collection, container, taskUri,
+  credentials, collection, container, taskUri, vendor,
 }) {
   const dateTime = (value) => `"${value}"^^<http://www.w3.org/2001/XMLSchema#dateTime>`;
   return `
@@ -73,7 +73,7 @@ INSERT DATA {
         adms:status ${uri(JOB_BUSY)} ;
         task:operation ${uri(JOB_OPERATION)} ;
         dct:creator ${uri(CREATOR)} ;
-        prov:wasAssociatedWith ${uri(VENDOR)} ;
+        prov:wasAssociatedWith ${uri(vendor)} ;
         skos:comment ${lit("test " + runId)} ;
         dct:created ${dateTime(now)} ; dct:modified ${dateTime(now)} ;
         mu:uuid ${lit(randomUUID())} .

@@ -61,7 +61,7 @@ try {
   for (const [name, url] of Object.entries(started.urls)) console.log("  " + name + ": " + url);
 
   section("job");
-  const job = await startJob(runId, started.urls, user, pass);
+  const job = await startJob(runId, started.urls, user, pass, bestuur.vendor);
   console.log("\njob started: " + job.jobUri);
 
   section("checks");

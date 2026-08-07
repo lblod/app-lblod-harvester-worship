@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { update } from "./sparql.js";
 import { startJobQuery } from "./queries.js";
 
-export async function startJob(runId, pageUrls, user, pass) {
+export async function startJob(runId, pageUrls, user, pass, vendor) {
   const now = new Date().toISOString();
   const id = (type) => "http://data.lblod.info/id/" + type + "/" + randomUUID();
   const jobUri = id("jobs");
@@ -18,7 +18,7 @@ export async function startJob(runId, pageUrls, user, pass) {
   await update(startJobQuery({
     runId, pageUrls, user, pass, now,
     jobUri, rdoMandatarissen, rdoBedienaren, authConfig, securityScheme,
-    credentials, collection, container, taskUri,
+    credentials, collection, container, taskUri, vendor,
   }));
   return { jobUri, rdoMandatarissen, rdoBedienaren };
 }
