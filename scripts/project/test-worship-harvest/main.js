@@ -11,6 +11,10 @@ import { startJob } from "./start.js";
 import { runChecks } from "./checks.js";
 
 const runId = randomUUID();
+const _t = new Date();
+const runStamp = [_t.getFullYear(), _t.getMonth() + 1, _t.getDate(),
+  _t.getHours(), _t.getMinutes(), _t.getSeconds()]
+  .map(n => String(n).padStart(2, "0")).join("-");
 
 function section(title) {
   console.log("\n── " + title + " " + "─".repeat(Math.max(3, 58 - title.length)));
@@ -37,8 +41,8 @@ try {
   if (!mandaat) throw new Error("no mandaat at " + bestuur.endpoint + " for " + bestuur.uri);
   if (!positie) throw new Error("no positie at " + bestuur.endpoint + " for " + bestuur.uri);
 
-  const mandataris = buildSubject("mandatarissen", "Testmandataris");
-  const bedienaar = buildSubject("rollenBedienaar", "Testbedienaar");
+  const mandataris = buildSubject("mandatarissen", "Testmandataris " + runStamp);
+  const bedienaar = buildSubject("rollenBedienaar", "Testbedienaar " + runStamp);
   const page = { RUN_ID: runId, BESTUUR_LABEL: bestuur.label };
   const pages = {
     mandatarissen: await renderPage("mandataris", {
