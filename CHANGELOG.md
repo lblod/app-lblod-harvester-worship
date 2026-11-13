@@ -1,9 +1,13 @@
 # Changelog
-## Unreleased
+
+## 0.18.0 (2026-11-13)
+
 - Bump acm-login service [DL-7346]
 - Adding extra provenance info [DL-7434] [DL-7435]
 - Adding mu-scripts to facilitate testing [DL-7517]
+
 ## Deploy notes
+
 ```
 drc stop # that's the easiest here
 drc up -d
